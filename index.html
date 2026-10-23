@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>한글×Español — 단어장</title>
+<link rel="icon" href="data:," />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="style.css?v=1" />
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <div class="mark"><span class="kr">한글</span><span class="cross">×</span><span class="es">Español</span></div>
+    <p class="tagline">우리 둘만의 단어장 · el cuaderno de palabras de los dos</p>
+  </header>
+  <hr class="rule" />
+  <div id="status" class="status-banner" hidden></div>
+  <div id="app"><p class="state-note">불러오는 중…</p></div>
+</div>
+
+<div class="modal-backdrop" id="confirmBackdrop" hidden>
+  <div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <p id="confirmTitle">정말 삭제할까요?</p>
+    <div class="modal-actions">
+      <button class="btn ghost" id="confirmCancel" type="button">취소</button>
+      <button class="btn danger" id="confirmOk" type="button">삭제</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="config.js?v=1"></script>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
