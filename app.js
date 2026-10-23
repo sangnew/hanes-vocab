@@ -64,9 +64,97 @@ function esc(s) {
 
 function byOrder(a, b) { return (a.order || 0) - (b.order || 0); }
 
+// ---------------- static alphabet reference data ----------------
+
+const KOREAN_CONSONANTS = [
+  { letter: "ㄱ", name: "기역 giyeok", pron: "g / k" },
+  { letter: "ㄴ", name: "니은 nieun", pron: "n" },
+  { letter: "ㄷ", name: "디귿 digeut", pron: "d / t" },
+  { letter: "ㄹ", name: "리을 rieul", pron: "r / l" },
+  { letter: "ㅁ", name: "미음 mieum", pron: "m" },
+  { letter: "ㅂ", name: "비읍 bieup", pron: "b / p" },
+  { letter: "ㅅ", name: "시옷 siot", pron: "s (sh before ㅣ)" },
+  { letter: "ㅇ", name: "이응 ieung", pron: "(silent) / ng" },
+  { letter: "ㅈ", name: "지읒 jieut", pron: "j" },
+  { letter: "ㅊ", name: "치읓 chieut", pron: "ch (aspirated)" },
+  { letter: "ㅋ", name: "키읔 kieuk", pron: "k (aspirated)" },
+  { letter: "ㅌ", name: "티읕 tieut", pron: "t (aspirated)" },
+  { letter: "ㅍ", name: "피읖 pieup", pron: "p (aspirated)" },
+  { letter: "ㅎ", name: "히읗 hieut", pron: "h" },
+];
+
+const KOREAN_CONSONANTS_TENSE = [
+  { letter: "ㄲ", name: "쌍기역 ssanggiyeok", pron: "kk (tense)" },
+  { letter: "ㄸ", name: "쌍디귿 ssangdigeut", pron: "tt (tense)" },
+  { letter: "ㅃ", name: "쌍비읍 ssangbieup", pron: "pp (tense)" },
+  { letter: "ㅆ", name: "쌍시옷 ssangsiot", pron: "ss (tense)" },
+  { letter: "ㅉ", name: "쌍지읒 ssangjieut", pron: "jj (tense)" },
+];
+
+const KOREAN_VOWELS = [
+  { letter: "ㅏ", rom: "a", pron: "ah (father)" },
+  { letter: "ㅑ", rom: "ya", pron: "yah" },
+  { letter: "ㅓ", rom: "eo", pron: "uh (law)" },
+  { letter: "ㅕ", rom: "yeo", pron: "yuh" },
+  { letter: "ㅗ", rom: "o", pron: "oh" },
+  { letter: "ㅛ", rom: "yo", pron: "yoh" },
+  { letter: "ㅜ", rom: "u", pron: "oo (moon)" },
+  { letter: "ㅠ", rom: "yu", pron: "yoo" },
+  { letter: "ㅡ", rom: "eu", pron: "uh (unrounded, 'u' in put)" },
+  { letter: "ㅣ", rom: "i", pron: "ee" },
+];
+
+const KOREAN_VOWELS_COMPOUND = [
+  { letter: "ㅐ", rom: "ae", pron: "eh/ae (cat)" },
+  { letter: "ㅒ", rom: "yae", pron: "yae" },
+  { letter: "ㅔ", rom: "e", pron: "eh (bed)" },
+  { letter: "ㅖ", rom: "ye", pron: "yeh" },
+  { letter: "ㅘ", rom: "wa", pron: "wah" },
+  { letter: "ㅙ", rom: "wae", pron: "weh" },
+  { letter: "ㅚ", rom: "oe", pron: "weh" },
+  { letter: "ㅝ", rom: "wo", pron: "wuh" },
+  { letter: "ㅞ", rom: "we", pron: "weh" },
+  { letter: "ㅟ", rom: "wi", pron: "wee" },
+  { letter: "ㅢ", rom: "ui", pron: "weui (uh+ee glide)" },
+];
+
+const SPANISH_ALPHABET = [
+  { letter: "A a", name: "a", ipa: "/a/", example: "agua" },
+  { letter: "B b", name: "be", ipa: "/b/", example: "burro" },
+  { letter: "C c", name: "ce", ipa: "/k, s/", example: "casa" },
+  { letter: "D d", name: "de", ipa: "/d/", example: "dedo" },
+  { letter: "E e", name: "e", ipa: "/e/", example: "elefante" },
+  { letter: "F f", name: "efe", ipa: "/f/", example: "flor" },
+  { letter: "G g", name: "ge", ipa: "/g, x/", example: "gato" },
+  { letter: "H h", name: "hache", ipa: "(silent)", example: "hola" },
+  { letter: "I i", name: "i", ipa: "/i/", example: "isla" },
+  { letter: "J j", name: "jota", ipa: "/x/", example: "jugo" },
+  { letter: "K k", name: "ka", ipa: "/k/", example: "kilo" },
+  { letter: "L l", name: "ele", ipa: "/l/", example: "luna" },
+  { letter: "M m", name: "eme", ipa: "/m/", example: "mesa" },
+  { letter: "N n", name: "ene", ipa: "/n/", example: "nube" },
+  { letter: "Ñ ñ", name: "eñe", ipa: "/ɲ/", example: "niño" },
+  { letter: "O o", name: "o", ipa: "/o/", example: "oso" },
+  { letter: "P p", name: "pe", ipa: "/p/", example: "perro" },
+  { letter: "Q q", name: "cu", ipa: "/k/", example: "queso" },
+  { letter: "R r", name: "ere", ipa: "/r, ɾ/", example: "ratón" },
+  { letter: "S s", name: "ese", ipa: "/s/", example: "sol" },
+  { letter: "T t", name: "te", ipa: "/t/", example: "taza" },
+  { letter: "U u", name: "u", ipa: "/u/", example: "uva" },
+  { letter: "V v", name: "uve", ipa: "/b/", example: "vaca" },
+  { letter: "W w", name: "uve doble", ipa: "/w/", example: "web" },
+  { letter: "X x", name: "equis", ipa: "/ks, s/", example: "examen" },
+  { letter: "Y y", name: "ye", ipa: "/i, ʝ/", example: "yo" },
+  { letter: "Z z", name: "zeta", ipa: "/s, θ/", example: "zapato" },
+];
+
 // ---------------- rendering ----------------
 
 function render() {
+  const alphaActive = state.activeCat === "__alphabet__" ? " active" : "";
+  const alphaBtn = `<button class="cat-btn alphabet-btn${alphaActive}" data-cat="__alphabet__">` +
+    `<span class="ko">🔤 알파벳</span><span class="en">Alphabet</span></button>`;
+
   const catsHtml = state.categories.slice().sort(byOrder).map((c) => {
     const active = c.id === state.activeCat ? " active" : "";
     return (
@@ -90,14 +178,42 @@ function render() {
 
   appEl.innerHTML =
     `<div class="board">
-      <nav class="cats">${catsHtml}<div class="add-cat">${addCatHtml}</div></nav>
+      <nav class="cats">${alphaBtn}<hr class="nav-rule" />${catsHtml}<div class="add-cat">${addCatHtml}</div></nav>
       <main class="panel">${mainHtml}</main>
     </div>`;
 
   wireNav();
 }
 
+function renderAlphabet() {
+  const koCard = (c) => `<div class="alpha-card"><div class="alpha-letter kr">${esc(c.letter)}</div><div class="alpha-name">${esc(c.name)}</div><div class="alpha-pron">${esc(c.pron)}</div></div>`;
+  const koVowelCard = (c) => `<div class="alpha-card"><div class="alpha-letter kr">${esc(c.letter)}</div><div class="alpha-name">${esc(c.rom)}</div><div class="alpha-pron">${esc(c.pron)}</div></div>`;
+  const esCard = (c) => `<div class="alpha-card"><div class="alpha-letter es">${esc(c.letter)}</div><div class="alpha-name">${esc(c.name)} <span class="ipa">${esc(c.ipa)}</span></div><div class="alpha-pron">${esc(c.example)}</div></div>`;
+
+  return (
+    `<div class="cat-head"><h1>🔤 알파벳</h1><span class="en">Alphabet &amp; Pronunciation</span></div>
+
+    <section class="alpha-section">
+      <h2 class="alpha-h kr">한글 자모 <span class="en">Hangul</span></h2>
+      <h3 class="alpha-sub">자음 Consonants (기본 14)</h3>
+      <div class="alpha-grid">${KOREAN_CONSONANTS.map(koCard).join("")}</div>
+      <h3 class="alpha-sub">쌍자음 Tense consonants (5)</h3>
+      <div class="alpha-grid">${KOREAN_CONSONANTS_TENSE.map(koCard).join("")}</div>
+      <h3 class="alpha-sub">모음 Vowels (기본 10)</h3>
+      <div class="alpha-grid">${KOREAN_VOWELS.map(koVowelCard).join("")}</div>
+      <h3 class="alpha-sub">이중모음 Compound vowels (11)</h3>
+      <div class="alpha-grid">${KOREAN_VOWELS_COMPOUND.map(koVowelCard).join("")}</div>
+    </section>
+
+    <section class="alpha-section">
+      <h2 class="alpha-h es">Alfabeto español <span class="en">Spanish alphabet</span></h2>
+      <div class="alpha-grid">${SPANISH_ALPHABET.map(esCard).join("")}</div>
+    </section>`
+  );
+}
+
 function renderMain() {
+  if (state.activeCat === "__alphabet__") return renderAlphabet();
   const cat = state.categories.find((c) => c.id === state.activeCat);
   if (!cat) return `<p class="state-note">왼쪽에서 카테고리를 선택하거나 새로 만들어 보세요.</p>`;
 
@@ -212,8 +328,14 @@ function setActiveCategory(id) {
   state.activeTab = "word";
   state.showAddEntry = false;
   state.editingId = null;
-  subscribeEntries(id);
-  render();
+  if (id === "__alphabet__") {
+    if (state.unsubEntries) { state.unsubEntries(); state.unsubEntries = null; }
+    state.entries = [];
+    render();
+  } else {
+    subscribeEntries(id);
+    render();
+  }
 }
 
 function subscribeEntries(catId) {

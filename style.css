@@ -85,6 +85,30 @@ nav.cats { display: flex; flex-direction: column; gap: 4px; position: sticky; to
 .add-cat { margin-top: 10px; }
 @media (max-width: 720px) { .add-cat { margin-top: 0; flex: 0 0 auto; } }
 
+.alphabet-btn { font-weight: 600; }
+.alphabet-btn.active { box-shadow: inset 2px 0 0 var(--accent-kr); }
+hr.nav-rule { border: none; border-top: 1px solid var(--line); margin: 6px 0; width: 100%; }
+@media (max-width: 720px) { hr.nav-rule { width: 1px; height: 28px; border-top: none; border-left: 1px solid var(--line); margin: 0 2px; flex: 0 0 auto; } }
+
+/* ---------- alphabet reference ---------- */
+.alpha-section { margin-top: 28px; }
+.alpha-h { font-family: "Gowun Batang", serif; font-size: 1.2rem; margin: 0 0 4px; display: flex; align-items: baseline; gap: 8px; }
+.alpha-h.kr { color: var(--accent-kr); }
+.alpha-h.es { color: var(--accent-es); font-family: "Fraunces", serif; }
+.alpha-h .en { font-family: "Fraunces", serif; font-style: italic; font-size: 0.78rem; color: var(--ink-soft); }
+.alpha-sub { font-size: 0.82rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); margin: 18px 0 8px; }
+.alpha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.alpha-card {
+  border: 1px solid var(--line); border-radius: 9px; background: var(--surface);
+  padding: 10px 8px; text-align: center;
+}
+.alpha-letter { font-size: 1.4rem; line-height: 1.1; margin-bottom: 4px; }
+.alpha-letter.kr { font-family: "Gowun Batang", serif; color: var(--ink); }
+.alpha-letter.es { font-family: "Fraunces", serif; font-weight: 600; color: var(--ink); }
+.alpha-name { font-size: 0.8rem; color: var(--ink-soft); }
+.alpha-name .ipa { font-family: "IBM Plex Mono", monospace; display: block; margin-top: 1px; }
+.alpha-pron { font-family: "IBM Plex Mono", monospace; font-size: 0.74rem; color: var(--accent-es); margin-top: 4px; word-wrap: break-word; }
+
 /* ---------- main panel ---------- */
 main.panel { min-width: 0; }
 .cat-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
